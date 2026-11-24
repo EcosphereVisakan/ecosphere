@@ -1,0 +1,16 @@
+{
+  "name": "ecoscope-demand-dashboard",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Offline-ready regional and sector demand analyzer for eco-friendly products",
+  "scripts": {
+    "start": "python server.py"
+  },
+  "dependencies": {},
+  "bundledAssets": {
+    "local-charts": "1.0.0 (vendor/local-charts.js)"
+  },
+  "engines": {
+    "python": ">=3.8.0"
+  }
+}

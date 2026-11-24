@@ -1,0 +1,24 @@
+date,region,state,sector,category,product_name,channel,units_sold,revenue_inr,repeat_order
+2026-10-01,South,Tamil Nadu,Offices & Education,Recycled A4 Paper,EcoBright 75 GSM Recycled A4 (500 Sheets),B2B Bulk,450,112500,Yes
+2026-10-02,South,Karnataka,Offices & Education,Recycled A4 Paper,EcoBright 75 GSM Recycled A4 (500 Sheets),B2B Bulk,600,150000,Yes
+2026-10-04,West,Maharashtra,Retail & E-commerce,Kraft & Paper Bags,Heavy Duty Kraft Carry Bags (Pack of 100),B2B Bulk,320,89600,Yes
+2026-10-05,South,Tamil Nadu,Food & Beverage,Eco Packaging,Compostable Food Containers (Pack of 250),Amazon,85,34000,No
+2026-10-07,South,Telangana,Offices & Education,Recycled A4 Paper,EcoBright 75 GSM Recycled A4 (500 Sheets),B2B Bulk,400,100000,Yes
+2026-10-09,South,Tamil Nadu,Hospitality,Eco Packaging,Areca & Paper Straws / Cups Combo,Flipkart,64,22400,No
+2026-10-12,West,Maharashtra,Offices & Education,Recycled A4 Paper,EcoBright 75 GSM Recycled A4 (500 Sheets),B2B Bulk,750,187500,Yes
+2026-10-15,South,Karnataka,Retail & E-commerce,Kraft & Paper Bags,Standy Pouches & Tissues Bundle,Amazon,110,49500,Yes
+2026-10-18,South,Telangana,Hospitality,Eco Packaging,Bagasse & Wooden Cutlery Pack,Flipkart,52,18200,No
+2026-10-21,South,Tamil Nadu,Offices & Education,Recycled A4 Paper,EcoBright 75 GSM Recycled A4 (500 Sheets),B2B Bulk,500,125000,Yes
+2026-10-25,West,Maharashtra,Food & Beverage,Eco Packaging,Compostable Food Containers (Pack of 250),B2B Bulk,280,112000,Yes
+2026-11-02,South,Karnataka,Offices & Education,Recycled A4 Paper,EcoBright 75 GSM Recycled A4 (500 Sheets),B2B Bulk,820,205000,Yes
+2026-11-08,South,Telangana,Retail & E-commerce,Kraft & Paper Bags,Heavy Duty Kraft Carry Bags (Pack of 100),B2B Bulk,410,114800,Yes
+2026-11-14,South,Tamil Nadu,Offices & Education,Recycled A4 Paper,EcoBright 75 GSM Recycled A4 (500 Sheets),Amazon,95,28500,No
+2026-11-20,West,Maharashtra,Offices & Education,Recycled A4 Paper,EcoBright 75 GSM Recycled A4 (500 Sheets),B2B Bulk,900,225000,Yes
+2026-10-03,North,Delhi,Retail & E-commerce,Kraft & Paper Bags,Recycled Kraft Retail Bags (Pack of 100),B2B Bulk,390,109200,Yes
+2026-10-11,East,West Bengal,Food & Beverage,Eco Packaging,Compostable Meal Boxes (Pack of 100),B2B Bulk,230,92000,Yes
+2026-10-16,Central,Madhya Pradesh,Offices & Education,Recycled A4 Paper,Recycled Office Paper (500 Sheets),B2B Bulk,340,85000,Yes
+2026-10-22,Northeast,Assam,Agriculture & Rural Retail,Kraft & Paper Bags,Compostable Produce Bags (Pack of 50),Direct,140,28000,No
+2026-11-04,North,Uttar Pradesh,Hospitality,Eco Packaging,Bagasse Food Trays (Pack of 100),Amazon,175,52500,No
+2026-11-10,East,Odisha,Agriculture & Rural Retail,Kraft & Paper Bags,Recycled Paper Produce Sacks (Pack of 25),Direct,95,19000,No
+2026-11-16,Central,Chhattisgarh,Food & Beverage,Eco Packaging,Compostable Takeaway Containers (Pack of 100),B2B Bulk,210,84000,Yes
+2026-11-21,Northeast,Meghalaya,Retail & E-commerce,Kraft & Paper Bags,Recycled Kraft Shopping Bags (Pack of 50),Amazon,120,30000,No

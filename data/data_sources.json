@@ -1,0 +1,55 @@
+{
+  "app_version": "3.0.0",
+  "bundled_libraries": [
+    {
+      "name": "LocalCharts Canvas Engine",
+      "version": "1.0.0",
+      "path": "vendor/local-charts.js",
+      "external_dependencies": "None (100% offline HTML5 Canvas)"
+    }
+  ],
+  "runtime_compatibility": {
+    "html": "HTML5",
+    "css": "CSS3 (CSS Custom Properties, Grid, Flexbox)",
+    "javascript": "ES2021+ (Vanilla JS)",
+    "python_server": "Python 3.8+ (Standard Library http.server \u2014 zero pip packages required)",
+    "browsers": "Chrome >=90, Edge >=90, Firefox >=90, Safari >=15"
+  },
+  "sources": [
+    {
+      "id": "local_csv",
+      "name": "Sample dataset (CSV)",
+      "type": "csv",
+      "description": "Illustrative eco-product orders across six Indian regions and five buyer sectors. Not a market forecast.",
+      "how_to_connect": "Loaded automatically by the dashboard."
+    },
+    {
+      "id": "local_json",
+      "name": "Sample dataset (JSON)",
+      "type": "json",
+      "description": "Structured JSON mirror of the illustrative regional dataset.",
+      "how_to_connect": "Select Sample dataset (JSON) in the source dropdown."
+    },
+    {
+      "id": "google_sheets",
+      "name": "Published spreadsheet (CSV)",
+      "type": "google_sheets",
+      "description": "Connect a published spreadsheet export to explore your own demand data.",
+      "how_to_connect": "Paste a CORS-accessible published CSV URL."
+    },
+    {
+      "id": "custom_json_api",
+      "name": "JSON API / Webhook",
+      "type": "json_api",
+      "description": "Connect an endpoint returning a JSON array or a data, rows, or records array.",
+      "how_to_connect": "Paste a CORS-enabled JSON URL."
+    },
+    {
+      "id": "file_upload",
+      "name": "Browser File Upload (.csv / .json)",
+      "type": "upload",
+      "description": "Load CSV or JSON records from your computer.",
+      "how_to_connect": "Choose Import data in the dashboard header."
+    }
+  ]
+}

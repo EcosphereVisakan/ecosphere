@@ -1,0 +1,1 @@
+# No third-party Python packages required (uses Python 3.8+ standard library http.server)

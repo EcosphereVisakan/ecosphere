@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explore eco-friendly product demand across regions, states, and business sectors." />
+  <title>EcoScope | Sustainable Demand Intelligence</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="vendor/local-charts.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">E</div>
+        <div>
+          <p class="eyebrow">SUSTAINABLE MARKET INTELLIGENCE</p>
+          <h1>EcoScope</h1>
+          <p class="subtitle">Understand where sustainable products are gaining demand.</p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <label class="btn btn-secondary" for="fileUploadInput">
+          <span aria-hidden="true">↑</span> Import data
+          <input type="file" id="fileUploadInput" accept=".csv,.json" hidden />
+        </label>
+        <button id="exportCsvBtn" class="btn btn-outline" type="button">Export view</button>
+        <button id="resetDataBtn" class="btn btn-outline" type="button">Reset</button>
+      </div>
+    </header>
+
+    <section class="card source-panel" aria-label="Data source">
+      <div class="source-row">
+        <div class="source-intro">
+          <span class="section-kicker">YOUR DATA</span>
+          <strong>Connect a demand dataset</strong>
+          <span>Use the sample or bring your own sales records.</span>
+        </div>
+        <div class="field">
+          <label for="sourceTypeSelect">Source</label>
+          <select id="sourceTypeSelect">
+            <option value="local_csv">Sample dataset (CSV)</option>
+            <option value="local_json">Sample dataset (JSON)</option>
+            <option value="google_sheets">Published Google Sheet (CSV URL)</option>
+            <option value="json_api">JSON API / Webhook URL</option>
+          </select>
+        </div>
+        <div class="field grow" id="remoteUrlGroup" style="display: none;">
+          <label for="remoteUrlInput">Data URL</label>
+          <input type="url" id="remoteUrlInput" placeholder="Paste a published CSV or JSON URL" />
+        </div>
+        <div class="field action-field">
+          <label aria-hidden="true">&nbsp;</label>
+          <button id="loadSourceBtn" class="btn btn-primary" type="button">Load data</button>
+        </div>
+      </div>
+      <div id="statusBanner" class="status-banner" role="status">
+        Active source: <strong>Sample dataset</strong>
+      </div>
+    </section>
+
+    <section class="filter-panel" aria-label="Demand filters">
+      <div class="filter-heading">
+        <div>
+          <span class="section-kicker">EXPLORE THE MARKET</span>
+          <h2>Demand overview</h2>
+        </div>
+        <span class="sample-note"><span class="live-dot"></span> Filter by geography and buyer sector</span>
+      </div>
+      <div class="filter-grid">
+        <div class="field">
+          <label for="regionFilter">Region</label>
+          <select id="regionFilter"><option value="ALL">All regions</option></select>
+        </div>
+        <div class="field">
+          <label for="stateFilter">State</label>
+          <select id="stateFilter"><option value="ALL">All states</option></select>
+        </div>
+        <div class="field">
+          <label for="sectorFilter">Buyer sector</label>
+          <select id="sectorFilter"><option value="ALL">All sectors</option></select>
+        </div>
+        <div class="field">
+          <label for="categoryFilter">Product category</label>
+          <select id="categoryFilter"><option value="ALL">All categories</option></select>
+        </div>
+        <div class="field search-field">
+          <label for="searchFilter">Search</label>
+          <input type="search" id="searchFilter" placeholder="Product, sector, state..." />
+        </div>
+      </div>
+    </section>
+
+    <section class="kpi-grid" aria-label="Demand indicators">
+      <article class="card kpi-card">
+        <div class="kpi-topline"><span class="kpi-icon icon-leaf" aria-hidden="true">↗</span><span class="kpi-label">PRODUCT DEMAND</span></div>
+        <strong class="kpi-value" id="kpiUnits">0</strong>
+        <span class="kpi-meta">Units sold in selected view</span>
+      </article>
+      <article class="card kpi-card">
+        <div class="kpi-topline"><span class="kpi-icon icon-revenue" aria-hidden="true">₹</span><span class="kpi-label">SALES VALUE</span></div>
+        <strong class="kpi-value" id="kpiRevenue">₹0</strong>
+        <span class="kpi-meta" id="kpiOrders">0 recorded orders</span>
+      </article>
+      <article class="card kpi-card">
+        <div class="kpi-topline"><span class="kpi-icon icon-sector" aria-hidden="true">◈</span><span class="kpi-label">LEADING SECTOR</span></div>
+        <strong class="kpi-value kpi-text" id="kpiSector">—</strong>
+        <span class="kpi-meta" id="kpiSectorMeta">No sector data yet</span>
+      </article>
+      <article class="card kpi-card">
+        <div class="kpi-topline"><span class="kpi-icon icon-region" aria-hidden="true">◎</span><span class="kpi-label">REGIONAL COVERAGE</span></div>
+        <strong class="kpi-value" id="kpiRegions">0</strong>
+        <span class="kpi-meta" id="kpiRegionsMeta">Regions represented</span>
+      </article>
+    </section>
+
+    <section class="charts-grid" aria-label="Regional and sector demand charts">
+      <article class="card chart-card">
+        <div class="chart-heading">
+          <div><span class="section-kicker">GEOGRAPHY</span><h2>Demand across regions</h2></div>
+          <span class="chart-unit">Units sold</span>
+        </div>
+        <div class="chart-wrap"><canvas id="demandByRegionChart" aria-label="Units sold by region"></canvas></div>
+      </article>
+      <article class="card chart-card">
+        <div class="chart-heading">
+          <div><span class="section-kicker">BUYER LANDSCAPE</span><h2>Demand by sector</h2></div>
+          <span class="chart-unit">Units sold</span>
+        </div>
+        <div class="chart-wrap"><canvas id="demandBySectorChart" aria-label="Units sold by buyer sector"></canvas></div>
+      </article>
+      <article class="card chart-card trend-card">
+        <div class="chart-heading">
+          <div><span class="section-kicker">OVER TIME</span><h2>Monthly demand trend</h2></div>
+          <span class="chart-unit">Units sold</span>
+        </div>
+        <p id="monthlyTrendNote" class="trend-note">Monthly totals reflect records in the selected view; partial months may be incomplete.</p>
+        <div class="chart-wrap"><canvas id="demandByMonthChart" aria-label="Monthly units sold trend"></canvas></div>
+      </article>
+    </section>
+
+    <section class="card insight-card" aria-label="Demand highlights">
+      <div class="insight-icon" aria-hidden="true">✳</div>
+      <div>
+        <span class="section-kicker">DEMAND SIGNAL</span>
+        <h2 id="insightTitle">Market highlights</h2>
+        <p id="insightText">Load a dataset to reveal leading regions and sectors.</p>
+      </div>
+    </section>
+
+    <section class="card table-card" aria-label="Demand records">
+      <div class="table-header">
+        <div><span class="section-kicker">UNDERLYING DATA</span><h2>Product demand records</h2></div>
+        <span id="tableCount" class="badge">0 records</span>
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th><th>Region</th><th>State</th><th>Buyer sector</th>
+              <th>Category</th><th>Product</th><th class="num">Units</th><th class="num">Sales value</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <details class="card sources-card">
+      <summary>Data sources and field guide</summary>
+      <p class="source-footnote">For useful sector insights, include a <code>sector</code> column in your data. Without one, the dashboard estimates a sector from the product category. Sample data is illustrative and not a market forecast.</p>
+      <div id="sourcesList" class="sources-grid"></div>
+    </details>
+    <footer class="footer">EcoScope <span>·</span> Offline-ready demand analysis <span>·</span> INR</footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
