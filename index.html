@@ -29,7 +29,13 @@
       </div>
     </header>
 
-    <section class="card source-panel" aria-label="Data source">
+    <nav class="view-switcher" aria-label="Dashboard views">
+      <button class="view-tab is-active" type="button" data-view="sales" aria-controls="salesDashboard" aria-pressed="true">Sales demand</button>
+      <button class="view-tab" type="button" data-view="market" aria-controls="marketSummary" aria-pressed="false">Regional market summary</button>
+    </nav>
+
+    <section id="salesDashboard" class="view-panel sales-view" aria-label="Sales demand dashboard">
+    <section class="card source-panel sales-view-part" aria-label="Data source">
       <div class="source-row">
         <div class="source-intro">
           <span class="section-kicker">YOUR DATA</span>
@@ -59,7 +65,7 @@
       </div>
     </section>
 
-    <section class="filter-panel" aria-label="Demand filters">
+    <section class="filter-panel sales-view-part" aria-label="Demand filters">
       <div class="filter-heading">
         <div>
           <span class="section-kicker">EXPLORE THE MARKET</span>
@@ -91,7 +97,7 @@
       </div>
     </section>
 
-    <section class="kpi-grid" aria-label="Demand indicators">
+    <section class="kpi-grid sales-view-part" aria-label="Demand indicators">
       <article class="card kpi-card">
         <div class="kpi-topline"><span class="kpi-icon icon-leaf" aria-hidden="true">↗</span><span class="kpi-label">PRODUCT DEMAND</span></div>
         <strong class="kpi-value" id="kpiUnits">0</strong>
@@ -114,7 +120,7 @@
       </article>
     </section>
 
-    <section class="charts-grid" aria-label="Regional and sector demand charts">
+    <section class="charts-grid sales-view-part" aria-label="Regional and sector demand charts">
       <article class="card chart-card">
         <div class="chart-heading">
           <div><span class="section-kicker">GEOGRAPHY</span><h2>Demand across regions</h2></div>
@@ -139,7 +145,7 @@
       </article>
     </section>
 
-    <section class="card insight-card" aria-label="Demand highlights">
+    <section class="card insight-card sales-view-part" aria-label="Demand highlights">
       <div class="insight-icon" aria-hidden="true">✳</div>
       <div>
         <span class="section-kicker">DEMAND SIGNAL</span>
@@ -148,7 +154,7 @@
       </div>
     </section>
 
-    <section class="card table-card" aria-label="Demand records">
+    <section class="card table-card sales-view-part" aria-label="Demand records">
       <div class="table-header">
         <div><span class="section-kicker">UNDERLYING DATA</span><h2>Product demand records</h2></div>
         <span id="tableCount" class="badge">0 records</span>
@@ -166,11 +172,67 @@
       </div>
     </section>
 
-    <details class="card sources-card">
+    <details class="card sources-card sales-view-part">
       <summary>Data sources and field guide</summary>
       <p class="source-footnote">For useful sector insights, include a <code>sector</code> column in your data. Without one, the dashboard estimates a sector from the product category. Sample data is illustrative and not a market forecast.</p>
       <div id="sourcesList" class="sources-grid"></div>
     </details>
+
+    </section>
+
+    <main id="marketSummary" class="view-panel market-summary" aria-label="Regional market summary" hidden>
+      <section class="market-heading">
+        <div>
+          <span class="section-kicker">REGIONAL MARKET SNAPSHOT</span>
+          <h2>Eco-friendly demand by region</h2>
+          <p>Market indicators from the supplied regional dataset. These are not order-level sales records.</p>
+        </div>
+        <span class="badge">5 regions</span>
+      </section>
+      <div id="marketSummaryStatus" class="status-banner" role="status">Showing the supplied regional market estimates.</div>
+      <section class="kpi-grid market-kpis" aria-label="Regional market indicators">
+        <article class="card kpi-card">
+          <div class="kpi-topline"><span class="kpi-icon icon-region" aria-hidden="true">◎</span><span class="kpi-label">REGIONS COVERED</span></div>
+          <strong class="kpi-value" id="marketRegionCount">0</strong>
+          <span class="kpi-meta">Regional summaries</span>
+        </article>
+        <article class="card kpi-card">
+          <div class="kpi-topline"><span class="kpi-icon icon-leaf" aria-hidden="true">↗</span><span class="kpi-label">LARGEST MARKET SHARE</span></div>
+          <strong class="kpi-value kpi-text" id="marketShareLeader">—</strong>
+          <span class="kpi-meta" id="marketShareMeta">—</span>
+        </article>
+        <article class="card kpi-card">
+          <div class="kpi-topline"><span class="kpi-icon icon-sector" aria-hidden="true">％</span><span class="kpi-label">FASTEST ANNUAL GROWTH</span></div>
+          <strong class="kpi-value kpi-text" id="marketGrowthLeader">—</strong>
+          <span class="kpi-meta" id="marketGrowthMeta">—</span>
+        </article>
+        <article class="card kpi-card">
+          <div class="kpi-topline"><span class="kpi-icon icon-revenue" aria-hidden="true">$</span><span class="kpi-label">HIGHEST PREMIUM WILLINGNESS</span></div>
+          <strong class="kpi-value kpi-text" id="marketPremiumLeader">—</strong>
+          <span class="kpi-meta" id="marketPremiumMeta">—</span>
+        </article>
+      </section>
+      <section class="card table-card" aria-label="Regional market details">
+        <div class="table-header">
+          <div><span class="section-kicker">SOURCE DATA</span><h2>Regional market indicators</h2></div>
+          <span class="badge">USD per capita</span>
+        </div>
+        <div class="table-responsive">
+          <table class="market-table">
+            <thead>
+              <tr>
+                <th>Region</th><th>Key countries</th><th class="num">Market share</th>
+                <th class="num">Annual growth</th><th class="num">Annual spend / capita</th>
+                <th class="num">Premium willingness</th><th>Top categories</th>
+                <th>Demand drivers</th><th>Dominant channel</th><th class="num">Demand intensity</th>
+              </tr>
+            </thead>
+            <tbody id="marketTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+      <p class="market-caveat">Values are reproduced from the supplied regional_ecofriendly_demand.csv and have not been independently verified. Market share and demand intensity are source-provided indicators, not calculated from this dashboard’s sales records.</p>
+    </main>
     <footer class="footer">EcoScope <span>·</span> Offline-ready demand analysis <span>·</span> INR</footer>
   </div>
   <script src="app.js"></script>

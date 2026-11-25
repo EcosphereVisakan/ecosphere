@@ -37,6 +37,7 @@ body {
 
 .topbar { justify-content: space-between; gap: 20px; }
 .brand { gap: 13px; }
+.topbar-actions[hidden], .view-panel[hidden] { display: none !important; }
 .brand-mark {
   width: 47px;
   height: 47px;
@@ -92,6 +93,32 @@ body {
 .btn-secondary:hover { background: #e2efe5; }
 .btn-outline { background: #fff; border-color: var(--border); color: #45554a; }
 .btn-outline:hover { background: #f7f9f6; }
+
+.view-switcher { display: flex; flex-wrap: wrap; gap: 8px; }
+.view-tab {
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: #45554a;
+  font: inherit;
+  font-size: 0.83rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+.view-tab.is-active { border-color: #c9dfd0; background: var(--accent-soft); color: var(--primary-dark); }
+.view-tab:focus-visible { outline: 2px solid #8ab99a; outline-offset: 2px; }
+.view-panel { min-width: 0; }
+.sales-view, .market-summary { display: flex; flex-direction: column; gap: 18px; }
+.market-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.market-heading h2 { margin: 2px 0 0; font-size: 1.25rem; letter-spacing: -0.025em; }
+.market-heading p { margin: 4px 0 0; color: var(--muted); font-size: 0.82rem; }
+.market-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.market-table { min-width: 1120px; }
+.market-table td { min-width: 110px; white-space: normal; }
+.market-table td:first-child, .market-table td.num { white-space: nowrap; }
+.market-caveat { margin: -5px 2px 0; color: var(--muted); font-size: 0.75rem; }
 
 .source-row { flex-wrap: wrap; gap: 14px; align-items: flex-end; }
 .source-intro { display: flex; flex: 1 1 230px; flex-direction: column; gap: 2px; padding-bottom: 4px; }
@@ -207,6 +234,8 @@ th.num, td.num { text-align: right; }
   .topbar { align-items: flex-start; flex-direction: column; }
   .topbar-actions { width: 100%; }
   .btn { flex: 1; }
+  .sales-view, .market-summary { gap: 13px; }
+  .market-heading { align-items: flex-start; flex-direction: column; }
   .card, .filter-panel { padding: 15px; }
   .source-intro { flex-basis: 100%; }
   .source-row .field { flex: 1 1 145px; }

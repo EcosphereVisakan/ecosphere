@@ -24,6 +24,69 @@ const EMBEDDED_FALLBACK_DATA = [
   { date: "2026-11-21", region: "Northeast", state: "Meghalaya", sector: "Retail & E-commerce", category: "Kraft & Paper Bags", product_name: "Recycled Kraft Shopping Bags (Pack of 50)", channel: "Amazon", units_sold: 120, revenue_inr: 30000, repeat_order: "No" }
 ];
 
+const REGIONAL_MARKET_DATA = [
+  {
+    region: "Europe",
+    keyCountries: "Germany, France, UK, Sweden, Nordic Countries",
+    marketSharePct: 37,
+    annualGrowthCagrPct: 12.8,
+    avgAnnualSpendPerCapitaUsd: 1840,
+    willingnessToPayPremiumPct: 68,
+    topDemandedCategories: "Sustainable Packaging, Eco-Fashion, Green Automotive, Home Care",
+    primaryDemandDrivers: "EU Green Deal, Mandatory Ecodesign Rules, Carbon Pricing, EPR Schemes",
+    dominantChannel: "Online E-Commerce & Supermarkets",
+    demandIntensityScore: 94
+  },
+  {
+    region: "Asia Pacific",
+    keyCountries: "China, India, Japan, Vietnam, Australia",
+    marketSharePct: 28.5,
+    annualGrowthCagrPct: 15.6,
+    avgAnnualSpendPerCapitaUsd: 620,
+    willingnessToPayPremiumPct: 80,
+    topDemandedCategories: "Organic Textiles, Green Building Materials, Personal Care, Bio-Packaging",
+    primaryDemandDrivers: "Rapid Urbanization, Govt Sustainability Policies, Rising Middle-Income Awareness",
+    dominantChannel: "Online Marketplaces & Direct-to-Consumer (D2C)",
+    demandIntensityScore: 91
+  },
+  {
+    region: "North America",
+    keyCountries: "United States, Canada",
+    marketSharePct: 24,
+    annualGrowthCagrPct: 9.4,
+    avgAnnualSpendPerCapitaUsd: 1450,
+    willingnessToPayPremiumPct: 51,
+    topDemandedCategories: "Recyclable Packaging, Organic Food & Beverage, Clean Beauty, Smart Home Energy",
+    primaryDemandDrivers: "Consumer Environmental Awareness, LEED/ENERGY STAR Incentives, Plastic Bans",
+    dominantChannel: "Online E-Commerce & Specialty Eco-Stores",
+    demandIntensityScore: 86
+  },
+  {
+    region: "Middle East & Africa",
+    keyCountries: "UAE, Saudi Arabia, Kenya, South Africa, Nigeria",
+    marketSharePct: 5.5,
+    annualGrowthCagrPct: 11.2,
+    avgAnnualSpendPerCapitaUsd: 390,
+    willingnessToPayPremiumPct: 78,
+    topDemandedCategories: "Solar & Clean Energy Accessories, Reusable Goods, Water-Saving Home Products",
+    primaryDemandDrivers: "Climate Vulnerability Awareness, Consumption Reduction Initiatives",
+    dominantChannel: "Supermarkets & Emerging E-Commerce",
+    demandIntensityScore: 74
+  },
+  {
+    region: "Latin America",
+    keyCountries: "Brazil, Mexico, Peru, Chile",
+    marketSharePct: 5,
+    annualGrowthCagrPct: 10.5,
+    avgAnnualSpendPerCapitaUsd: 410,
+    willingnessToPayPremiumPct: 64,
+    topDemandedCategories: "Natural Cosmetics, Biodegradable Packaging, Organic Agriculture Goods",
+    primaryDemandDrivers: "Biodiversity Conservation, Single-Use Plastic Restrictions, Local Sourcing",
+    dominantChannel: "Online Retail & Local Eco-Markets",
+    demandIntensityScore: 72
+  }
+];
+
 const state = {
   rawRows: [],
   charts: { byRegion: null, bySector: null, byMonth: null }
@@ -55,7 +118,19 @@ const els = {
   sourcesList: document.getElementById("sourcesList"),
   monthlyTrendNote: document.getElementById("monthlyTrendNote"),
   insightTitle: document.getElementById("insightTitle"),
-  insightText: document.getElementById("insightText")
+  insightText: document.getElementById("insightText"),
+  topbarActions: document.querySelector(".topbar-actions"),
+  salesDashboard: document.getElementById("salesDashboard"),
+  marketSummary: document.getElementById("marketSummary"),
+  marketSummaryStatus: document.getElementById("marketSummaryStatus"),
+  marketTableBody: document.getElementById("marketTableBody"),
+  marketRegionCount: document.getElementById("marketRegionCount"),
+  marketShareLeader: document.getElementById("marketShareLeader"),
+  marketShareMeta: document.getElementById("marketShareMeta"),
+  marketGrowthLeader: document.getElementById("marketGrowthLeader"),
+  marketGrowthMeta: document.getElementById("marketGrowthMeta"),
+  marketPremiumLeader: document.getElementById("marketPremiumLeader"),
+  marketPremiumMeta: document.getElementById("marketPremiumMeta")
 };
 
 function setStatus(message, isError = false) {
@@ -372,6 +447,58 @@ function renderTable(rows) {
   `).join("");
 }
 
+function renderMarketSummary() {
+  const topShare = REGIONAL_MARKET_DATA.reduce((leader, row) =>
+    row.marketSharePct > leader.marketSharePct ? row : leader
+  );
+  const fastestGrowth = REGIONAL_MARKET_DATA.reduce((leader, row) =>
+    row.annualGrowthCagrPct > leader.annualGrowthCagrPct ? row : leader
+  );
+  const highestPremium = REGIONAL_MARKET_DATA.reduce((leader, row) =>
+    row.willingnessToPayPremiumPct > leader.willingnessToPayPremiumPct ? row : leader
+  );
+  const formatPercent = (value) => `${Number(value).toLocaleString("en-US", { maximumFractionDigits: 1 })}%`;
+  const formatUsd = (value) => new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0
+  }).format(value);
+
+  els.marketRegionCount.textContent = REGIONAL_MARKET_DATA.length.toLocaleString("en-US");
+  els.marketShareLeader.textContent = topShare.region;
+  els.marketShareMeta.textContent = `${formatPercent(topShare.marketSharePct)} market share`;
+  els.marketGrowthLeader.textContent = fastestGrowth.region;
+  els.marketGrowthMeta.textContent = `${formatPercent(fastestGrowth.annualGrowthCagrPct)} annual growth`;
+  els.marketPremiumLeader.textContent = highestPremium.region;
+  els.marketPremiumMeta.textContent = `${formatPercent(highestPremium.willingnessToPayPremiumPct)} willing to pay a premium`;
+  els.marketTableBody.innerHTML = REGIONAL_MARKET_DATA.map((row) => `
+    <tr>
+      <td><span class="region-tag">${escapeHtml(row.region)}</span></td>
+      <td>${escapeHtml(row.keyCountries)}</td>
+      <td class="num">${formatPercent(row.marketSharePct)}</td>
+      <td class="num">${formatPercent(row.annualGrowthCagrPct)}</td>
+      <td class="num">${formatUsd(row.avgAnnualSpendPerCapitaUsd)}</td>
+      <td class="num">${formatPercent(row.willingnessToPayPremiumPct)}</td>
+      <td>${escapeHtml(row.topDemandedCategories)}</td>
+      <td>${escapeHtml(row.primaryDemandDrivers)}</td>
+      <td>${escapeHtml(row.dominantChannel)}</td>
+      <td class="num">${Number(row.demandIntensityScore).toLocaleString("en-US")}</td>
+    </tr>
+  `).join("");
+}
+
+function setDashboardView(view) {
+  const showSales = view === "sales";
+  els.salesDashboard.hidden = !showSales;
+  els.marketSummary.hidden = showSales;
+  els.topbarActions.hidden = !showSales;
+  document.querySelectorAll(".view-tab").forEach((button) => {
+    const active = button.dataset.view === view;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+}
+
 function renderCharts(rows, byMonth) {
   if (typeof Chart === "undefined") return;
   if (state.charts.byRegion) state.charts.byRegion.destroy();
@@ -438,6 +565,9 @@ els.sourceTypeSelect.addEventListener("change", () => {
 });
 els.loadSourceBtn.addEventListener("click", loadFromSource);
 els.fileUploadInput.addEventListener("change", handleFileUpload);
+document.querySelectorAll(".view-tab").forEach((button) => {
+  button.addEventListener("click", () => setDashboardView(button.dataset.view));
+});
 els.exportCsvBtn.addEventListener("click", exportFilteredCSV);
 els.resetDataBtn.addEventListener("click", () => {
   els.sourceTypeSelect.value = "local_csv";
@@ -453,3 +583,4 @@ els.resetDataBtn.addEventListener("click", () => {
 
 loadDataSourcesCatalog();
 loadFromSource();
+renderMarketSummary();

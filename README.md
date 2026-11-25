@@ -4,6 +4,8 @@ EcoScope is an offline-ready dashboard for exploring eco-friendly product demand
 
 The bundled sample contains illustrative records across North, South, East, West, Central, and Northeast India. It demonstrates the dashboard and is not market research or a forecast. Use your own validated sales data for business decisions.
 
+The **Regional market summary** view separately displays the supplied regional market indicators, including market share, annual growth, spend per capita, willingness to pay a premium, categories, demand drivers, channels, and demand intensity. These user-provided estimates are kept separate from order-level sales records and have not been independently verified.
+
 ## Run the dashboard
 
 - **Offline:** Open `index.html` in a modern browser.
